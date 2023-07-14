@@ -43,16 +43,13 @@ public class ChatServerTest {
 
     @Test
     public void testReadClientMessages() throws IOException {
-        // Создание mock-клиента
         Socket clientSocket = Mockito.mock(Socket.class);
         InputStream inputStream = new ByteArrayInputStream("Test message".getBytes());
         Mockito.when(clientSocket.getInputStream()).thenReturn(inputStream);
 
-        // Создание mock-сервера
         BufferedReader in = Mockito.mock(BufferedReader.class);
         Mockito.when(in.readLine()).thenReturn("Test message", null);
 
-        // Тестирование чтения сообщений клиента
         String expected = "Test message";
         String actual = in.readLine();
         assertEquals(expected, actual);

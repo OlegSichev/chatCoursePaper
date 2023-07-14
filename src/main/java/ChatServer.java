@@ -14,23 +14,19 @@ public class ChatServer {
     private static boolean isRunning = true;
 
     public static void main(String[] args) {
-        // Чтение настроек сервера из файла
         String[] settings = readSettingsFromSettingsFile();
         String ipAddress = settings[0];
         int port = Integer.parseInt(settings[1]);
 
         try {
-            // Создание серверного сокета
             ServerSocket serverSocket = new ServerSocket(port, 0, InetAddress.getByName(ipAddress));
             System.out.println("Сервер чата запущен на IP " + ipAddress + " и порту " + port);
 
-            // Отдельный поток для чтения ввода сервера
             Thread serverInputThread = new Thread(() -> {
                 Scanner scanner = new Scanner(System.in);
                 while (isRunning) {
                     String serverMessage = scanner.nextLine();
 
-                    // Отправка сообщения всем клиентам
                     for (PrintWriter client : clients) {
                         client.println("[Server]: " + serverMessage);
                     }
@@ -39,22 +35,18 @@ public class ChatServer {
             serverInputThread.start();
 
             while (isRunning) {
-                // Ожидание подключения клиентов
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Новый клиент подключился: " + clientSocket);
 
-                // Создание отдельного потока для обработки сообщений клиента
                 Thread clientThread = new Thread(() -> {
                     try {
                         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                         BufferedWriter logWriter = new BufferedWriter(new FileWriter(LOG_FILE, true));
 
-                        // Чтение имени пользователя
                         String username = in.readLine();
                         System.out.println("Пользователь " + username + " присоединился к чату");
 
-                        // Добавление клиента в список клиентов
                         clients.add(out);
 
                         String message;
@@ -64,22 +56,18 @@ public class ChatServer {
                             logWriter.write(logEntry);
                             logWriter.flush();
 
-                            // Отправка сообщения всем клиентам
                             for (PrintWriter client : clients) {
                                 client.println(logEntry);
                             }
 
-                            // Отображение сообщения в терминале сервера
                             System.out.println(logEntry);
                         }
 
-                        // Закрытие подключения клиента и потоков
                         clientSocket.close();
                         in.close();
                         out.close();
                         logWriter.close();
 
-                        // Удаление клиента из списка клиентов
                         removeClient(out);
 
                         System.out.println("Пользователь " + username + " покинул чат");
@@ -98,8 +86,8 @@ public class ChatServer {
     static String[] readSettingsFromSettingsFile() {
         String[] settings = new String[2];
         try (BufferedReader reader = new BufferedReader(new FileReader(SETTINGS_FILE))) {
-            settings[0] = reader.readLine(); // Первая строка - IP-адрес
-            settings[1] = reader.readLine(); // Вторая строка - порт
+            settings[0] = reader.readLine();
+            settings[1] = reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
