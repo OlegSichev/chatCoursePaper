@@ -95,7 +95,7 @@ public class ChatServer {
         }
     }
 
-    private static String[] readSettingsFromSettingsFile() {
+    static String[] readSettingsFromSettingsFile() {
         String[] settings = new String[2];
         try (BufferedReader reader = new BufferedReader(new FileReader(SETTINGS_FILE))) {
             settings[0] = reader.readLine(); // Первая строка - IP-адрес
@@ -107,7 +107,7 @@ public class ChatServer {
         return settings;
     }
 
-    private static String getCurrentTimestamp() {
+    static String getCurrentTimestamp() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dateFormat.format(new Date());
     }
