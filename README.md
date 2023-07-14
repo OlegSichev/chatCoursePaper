@@ -3,24 +3,9 @@ ChatServer - это серверная программа на языке Java, 
 
 ## Установка
 Склонируйте репозиторий с помощью команды:
-Копировать
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/highlight.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/styles/default.min.css">
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    hljs.initHighlightingOnLoad();
-    new ClipboardJS('.btn');
-  });
-</script>
-
-<pre><code class="java hljs" id="code-snippet"> git clone https://github.com/username/ChatServer.git
+<pre><code> git clone https://github.com/username/ChatServer.git
 </code></pre>
-
-<button class="btn" data-clipboard-target="#code-snippet">Копировать</button>
 
 Откройте проект в вашей любимой интегрированной среде разработки (IDE).
 Зависимости
@@ -69,23 +54,9 @@ ChatServer - это серверная программа на языке Java, 
 
 Пример файла settings.txt:
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/highlight.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/styles/default.min.css">
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    hljs.initHighlightingOnLoad();
-    new ClipboardJS('.btn');
-  });
-</script>
-
-<pre><code class="java hljs" id="code-snippet"> 127.0.0.1
+<pre><code>127.0.0.1
 8080
 </code></pre>
-
-<button class="btn" data-clipboard-target="#code-snippet">Копировать</button>
 
 ## Использование
 - После запуска клиента, введите свое имя в консоли.
@@ -97,23 +68,8 @@ ChatServer - это серверная программа на языке Java, 
 - Клиент записывает полученные сообщения в файл file.log. 
 - Каждое сообщение сохраняется в виде:
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/highlight.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.0/styles/default.min.css">
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    hljs.initHighlightingOnLoad();
-    new ClipboardJS('.btn');
-  });
-</script>
-
-<pre><code class="java hljs" id="code-snippet"> [yyyy-MM-dd HH:mm:ss] message
+<pre><code>[yyyy-MM-dd HH:mm:ss] message
 </code></pre>
-
-<button class="btn" data-clipboard-target="#code-snippet">Копировать</button>
 
 ## Завершение работы
 Клиент будет завершать работу и закрывать соединение с сервером в случае ввода команды /exit или при неудачном подключении к серверу.
