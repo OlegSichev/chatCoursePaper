@@ -9,6 +9,8 @@ public class ChatClient {
     private static final String LOG_FILE = "file.log";
     private static final String EXIT_COMMAND = "/exit";
 
+    private static boolean isServerShutdown = false;
+
     public static void main(String[] args) {
         String[] settings = readSettingsFromSettingsFile();
         String serverAddress = settings[0];
@@ -33,30 +35,31 @@ public class ChatClient {
             Thread serverThread = new Thread(() -> {
                 try {
                     String message;
-                    while ((message = serverIn.readLine()) != null) {
-
+                    while ((message = serverIn.readLine()) != null && !isServerShutdown) {
                         String logEntry = "[" + getCurrentTimestamp() + "] " + message + System.lineSeparator();
                         logOut.write(logEntry);
                         logOut.flush();
 
                         System.out.println(message);
                     }
-
-                    serverIn.close();
-                    serverOut.close();
-                    logOut.close();
-                    socket.close();
-
-                    System.exit(0);
                 } catch (IOException e) {
                     e.printStackTrace();
+                } finally {
+                    try {
+                        serverIn.close();
+                        serverOut.close();
+                        logOut.close();
+                        System.exit(0);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
 
             serverThread.start();
 
             String message;
-            while (true) {
+            while (!isServerShutdown) {
                 message = scanner.nextLine();
 
                 serverOut.write(message);
@@ -64,9 +67,11 @@ public class ChatClient {
                 serverOut.flush();
 
                 if (message.equals(EXIT_COMMAND)) {
-                    break;
+                    isServerShutdown = true;
                 }
             }
+
+            scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
